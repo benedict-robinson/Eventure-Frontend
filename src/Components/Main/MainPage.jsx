@@ -8,7 +8,7 @@ export default function MainPage() {
   return (
     <div className="main-container">
         <TagLine {...{params, setParams}}/>
-        <EventsList />
+        <EventsList {...{params}}/>
     </div>
   )
 }
