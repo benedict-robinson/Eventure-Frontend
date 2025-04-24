@@ -4,8 +4,13 @@ const api = axios.create({
     baseURL: `https://eventure-backend-api.onrender.com/api`,
   });
 
-export const fetchEvents = () => {
-    return api.get("/events")
+export const fetchEvents = (params) => {
+    const queries = []
+    for (const key in params) {
+        queries.push(`${key}=${params[key]}`)
+    }
+    const finalQuery = `?${queries.join("&")}`
+    return api.get(`/events${queries.length > 0 ? finalQuery : ""}`)
     .then(({data}) => {
         return data
     })
