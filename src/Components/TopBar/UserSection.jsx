@@ -1,10 +1,11 @@
-import { UserIcon } from '@heroicons/react/24/outline'
+import "./TopBar.css"
+import UserIconComp from "./UserIcon.jsx";
 
 export default function UserSection() {
     return (
       <div className="user-section">
         <div className="user-icon">
-          <UserIcon />
+          <UserIconComp id="user-icon"/>
         </div>
         <div className="user-email">
           <span className="email-text">user@example.com</span>
