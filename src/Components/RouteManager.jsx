@@ -1,7 +1,10 @@
-import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import MainPage from './Main/MainPage.jsx'
 
 export default function RouteManager() {
   return (
-    <div>RouteManager</div>
+    <Routes>
+      <Route path="/" element={<MainPage />}/>
+    </Routes>
   )
 }

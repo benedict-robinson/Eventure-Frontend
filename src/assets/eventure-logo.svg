@@ -1,0 +1,15 @@
+<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="200" fill="transparent" />
+  
+  <g transform="translate(50, 60)">
+    <rect x="10" y="10" width="60" height="70" rx="8" fill="#944BBB" />
+    <rect x="20" y="5" width="10" height="15" rx="2" fill="#944BBB" />
+    <rect x="50" y="5" width="10" height="15" rx="2" fill="#944BBB" />
+    <rect x="20" y="30" width="40" height="40" rx="4" fill="white" />
+    <path d="M33 40 L47 55 L40 62" stroke="#FF5252" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <text x="85" y="66" font-family="Arial, sans-serif" font-size="62" font-weight="bold" fill="#333333">
+      Even<tspan fill="#944BBB">ture</tspan>
+    </text>
+  </g>
+</svg>
