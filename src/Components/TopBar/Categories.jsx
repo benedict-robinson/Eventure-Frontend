@@ -1,3 +1,4 @@
+import "./TopBar.css"
 
 export default function Categories() {
     const categories = ['Home', 'About', 'Services', 'Blog', 'Contact', 'Shop', 'FAQ', 'Support'];
