@@ -21,6 +21,13 @@ export default function EventsList({params, categoryName}) {
             setEvents([])
         })
     }, [params, categoryName])
+if (events.length === 0) {
+    return (
+        <div className="No-Events">
+            <h2>Hmm... Looks like there are no{categoryName ? ` ${categoryName}` : ""} events scheduled in {params.city}</h2>
+        </div>
+    )
+}
   return (
     <div className="eventslist-container">
         {events.map((e, i) => {

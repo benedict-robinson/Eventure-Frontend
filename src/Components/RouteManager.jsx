@@ -6,6 +6,7 @@ export default function RouteManager() {
     <Routes>
       <Route path="/" element={<MainPage />}/>
       <Route path="/category/:categoryName" element={<MainPage />} />
+      <Route path="/event/:eventId" element={} />
     </Routes>
   )
 }

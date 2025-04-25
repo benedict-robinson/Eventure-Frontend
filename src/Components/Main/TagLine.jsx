@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { ukCities, usCities } from "../../Info/cities.js"
 
-export default function TagLine({params, setParams}) {
+export default function TagLine({params, setParams, categoryName}) {
     const { city, countryCode } = params
     const [cities, setCities] = useState(ukCities)
     useEffect(() => {
@@ -31,7 +31,7 @@ export default function TagLine({params, setParams}) {
     
       return (
         <div>
-          <label htmlFor="city-select">Showing Events in </label>
+          <label htmlFor="city-select">Showing{categoryName ? ` ${categoryName}` : ""} Events in </label>
           <select style={{width: "100px"}} id="city-select" value={city} onChange={handleChangeCity}>
             {cities.map((c, i) => (
               <option key={i} value={c}>
