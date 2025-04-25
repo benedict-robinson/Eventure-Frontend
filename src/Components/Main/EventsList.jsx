@@ -6,6 +6,8 @@ import { Link } from "react-router-dom"
 
 export default function EventsList({params, categoryName}) {
     const [events, setEvents] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+
     useEffect(() => {
         fetchEvents(params).then(({events: fetched}) => {
             let newEvents = [...fetched]
@@ -21,7 +23,19 @@ export default function EventsList({params, categoryName}) {
             console.log({error: err})
             setEvents([])
         })
+        .finally(() => {
+            setIsLoading(false)
+        })
     }, [params, categoryName])
+
+    if (isLoading) {
+        return (
+            <div>
+                <p>Loading...</p>
+            </div>
+        )
+    }
+
 if (events.length === 0) {
     return (
         <div className="No-Events">
@@ -29,6 +43,7 @@ if (events.length === 0) {
         </div>
     )
 }
+
   return (
     <div className="eventslist-container">
         {events.map((e, i) => {

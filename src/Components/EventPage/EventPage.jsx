@@ -4,6 +4,7 @@ import { fetchEventById } from "../../api.js"
 
 export default function EventPage() {
     const [event, setEvent] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
     const { eventId } = useParams()
     useEffect(() => {
         console.log(eventId)
@@ -14,7 +15,19 @@ export default function EventPage() {
             console.log(err)
             setEvent({})
         })
+        .finally(() => {
+            setIsLoading(false)
+        })
     }, [eventId])
+
+    if (isLoading) {
+        return (
+            <div>
+                <p>Loading...</p>
+            </div>
+        )
+    }
+
   return (
     <div className="event-page-container">
         <img src={event.img.url} />
