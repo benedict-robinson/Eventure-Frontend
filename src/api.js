@@ -15,3 +15,10 @@ export const fetchEvents = (params) => {
         return data
     })
 }
+
+export const fetchEventById = (id) => {
+    return api.get(`/events/event/${id}`)
+    .then(({data: {event}}) => {
+        return event
+    })
+}
