@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import { fetchEvents } from "../../api.js"
 import EventCard from "./EventCard.jsx"
+import { Link } from "react-router-dom"
 
 
 export default function EventsList({params, categoryName}) {
     const [events, setEvents] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+
     useEffect(() => {
         fetchEvents(params).then(({events: fetched}) => {
             let newEvents = [...fetched]
@@ -20,7 +23,19 @@ export default function EventsList({params, categoryName}) {
             console.log({error: err})
             setEvents([])
         })
+        .finally(() => {
+            setIsLoading(false)
+        })
     }, [params, categoryName])
+
+    if (isLoading) {
+        return (
+            <div>
+                <p>Loading...</p>
+            </div>
+        )
+    }
+
 if (events.length === 0) {
     return (
         <div className="No-Events">
@@ -28,12 +43,15 @@ if (events.length === 0) {
         </div>
     )
 }
+
   return (
     <div className="eventslist-container">
         {events.map((e, i) => {
             return (
                 <div className="event-card-container">
+                    <Link to={`/event/${e.event_id}`}>
                     <EventCard key={i} event={e}/>
+                    </Link>
                 </div>
             )
         })}
