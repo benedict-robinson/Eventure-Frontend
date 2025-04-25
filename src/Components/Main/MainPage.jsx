@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import EventsList from "./EventsList.jsx";
 import TagLine from "./TagLine.jsx";
 import { useParams } from "react-router-dom";
