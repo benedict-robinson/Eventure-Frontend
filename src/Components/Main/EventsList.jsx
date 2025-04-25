@@ -6,10 +6,11 @@ import EventCard from "./EventCard.jsx"
 export default function EventsList({params}) {
     const [events, setEvents] = useState([])
     useEffect(() => {
+        console.log(params)
         fetchEvents(params).then(({events}) => {
             setEvents(events)
         })
-    }, [])
+    }, [params])
   return (
     <div className="eventslist-container">
         {events.map((e, i) => {
