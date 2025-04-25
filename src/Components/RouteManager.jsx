@@ -5,6 +5,7 @@ export default function RouteManager() {
   return (
     <Routes>
       <Route path="/" element={<MainPage />}/>
+      <Route path="/category/:categoryName" element={<MainPage />} />
     </Routes>
   )
 }

@@ -1,14 +1,19 @@
 import "./TopBar.css"
+import { Link } from 'react-router-dom';
 
 export default function Categories() {
-    const categories = ['Home', 'About', 'Services', 'Blog', 'Contact', 'Shop', 'FAQ', 'Support'];
+    const categories = ['Sports', 'Music', 'Arts & Theatre', 'Film', 'Comedy', 'Miscellaneous', 'Group'];
   
     return (
       <div className="categories">
         {categories.map((category, index) => (
-          <a key={index} href={`#${category.toLowerCase()}`} className="nav-link">
-            {category}
-          </a>
+          <Link
+          key={index}
+          to={`/category/${category.toLowerCase().replace(/ & /g, '+').replace(/\s/g, '-')}`}
+          className="nav-link"
+        >
+          {category}
+        </Link>
         ))}
       </div>
     );
