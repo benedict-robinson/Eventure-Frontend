@@ -61,6 +61,7 @@
   line-height: 1.2em;
   max-height: calc(1.2em * 3);
   height: 95px;
+  color: #8744ac;
 }
 .event-card #date {
   font-size: 14px;
