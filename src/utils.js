@@ -9,3 +9,8 @@ export function formatDate(dateString) {
   
     return new Intl.DateTimeFormat('en-GB', options).format(date);
   }
+
+  export function formatTime(time) {
+    const [hours, minutes] = time.split(':');
+    return `${hours}:${minutes}`;
+  }

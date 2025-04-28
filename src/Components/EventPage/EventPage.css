@@ -1,0 +1,27 @@
+.outer-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 5px;
+}
+.event-page-container {
+    border: 2px solid;
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+}
+
+.event-page-container img {
+    border-radius: 12px;
+    max-height: 600px;
+}
+
+.time-and-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#description {
+    color: rgb(71, 71, 71);
+}
