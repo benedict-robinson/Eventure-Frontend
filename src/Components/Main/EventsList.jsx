@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { fetchEvents } from "../../api.js"
 import EventCard from "./EventCard.jsx"
-import { Link } from "react-router-dom"
 
 
 export default function EventsList({params, categoryName}) {
@@ -49,9 +48,7 @@ if (events.length === 0) {
         {events.map((e, i) => {
             return (
                 <div className="event-card-container">
-                    <Link to={`/event/${e.event_id}`}>
                     <EventCard key={i} event={e}/>
-                    </Link>
                 </div>
             )
         })}
