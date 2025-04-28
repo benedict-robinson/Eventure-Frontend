@@ -9,7 +9,6 @@ export default function EventPage() {
     const [isLoading, setIsLoading] = useState(true)
     const { eventId } = useParams()
     useEffect(() => {
-        console.log(eventId)
         fetchEventById(eventId).then((response) => {
             setEvent(response)
         })
