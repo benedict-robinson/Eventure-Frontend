@@ -10,6 +10,7 @@ export default function RouteManager() {
       <Route path="/category/:categoryName" element={<MainPage />} />
       <Route path="/event/:eventId" element={<EventPage />} />
       <Route path="/account" element={<AccountPage />} />
+      <Route path="/account/:item" element={<AccountPage />} />
     </Routes>
   )
 }

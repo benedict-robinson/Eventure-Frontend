@@ -22,3 +22,10 @@ export const fetchEventById = (id) => {
         return event
     })
 }
+
+export const fetchUserByUsername = (username) => {
+    return api.get(`/users/${username}`)
+    .then(({data: {user}}) => {
+        return user
+    })
+}
