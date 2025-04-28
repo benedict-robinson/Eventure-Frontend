@@ -33,7 +33,7 @@ export default function EventPage() {
         <img src={event.img.url} />
         <h1>{event.name}</h1>
         <p>{event.date_and_time.start_date} - {event.date_and_time.start_time}</p>
-        <p>{event.description}</p>
+        <p>{event.description ? event.description : `${EventTarget.name} in ${event.location.city}`}</p>
         <p>{event.info}</p>
     </div>
   )
