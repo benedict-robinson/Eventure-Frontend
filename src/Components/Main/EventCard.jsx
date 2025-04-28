@@ -2,8 +2,19 @@ import HeartIconComp from "./HeartIcon.jsx";
 import CalendarIconComp from "./CalendarIcon.jsx";
 import { Link } from "react-router-dom"
 import "./Main.css"
+import { formatDate } from "../../utils.js";
+import { useState } from "react";
 
 export default function EventCard({ event }) {
+  const [isFave, setIsFave] = useState(false)
+  const [isGoing, setIsGoing] = useState(false)
+
+  function handleClickFave() {
+    setIsFave(!isFave)
+  }
+  function handleClickGoing() {
+    setIsGoing(!isGoing)
+  }
 
   return (
     <div className="event-card">
@@ -13,11 +24,14 @@ export default function EventCard({ event }) {
         </div>
         <h2>{event.name}</h2>
       </Link>
-      <p>{event.date_and_time.start_date}</p>
-      <p>{event.date_and_time.start_time}</p>
-      {event.tags.length > 0 ? <p>Tags: {event.tags.filter(t => t !== "Undefined").join(", ")}</p> : <></>}
-      <button><HeartIconComp /></button>
-      <button><CalendarIconComp /></button>
+      <div className="sub-container">
+      <p id="date">{formatDate(event.date_and_time.start_date)}</p>
+      {event.tags.length > 0 ? <p id="tags" >Tags: {event.tags.filter(t => t !== "Undefined").join(", ")}</p> : <></>}
+      <div className="button-container">
+      <button onClick={handleClickFave}><HeartIconComp isFave={isFave} /></button>
+      <button onClick={handleClickGoing}><CalendarIconComp isGoing={isGoing}/></button>
+      </div>
+      </div>
     </div>
   )
 }
