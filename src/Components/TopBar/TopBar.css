@@ -38,6 +38,13 @@
     width: 24px;
 }
 
+@media (max-width: 612px) {
+    .user-section {
+        margin: 5px;
+        width: 30px;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     .nav-link {
         color: #CEB1BE;
