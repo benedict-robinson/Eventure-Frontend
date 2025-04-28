@@ -10,11 +10,6 @@ export default function Categories() {
   
   const screenWidth = useScreenWidth()
 
-    // if (screenWidth < 1000) {
-    //   setVisibleCategories(categories.slice(0, 5))
-    // } else if (screenWidth < 900) {
-    //   setVisibleCategories(categories.slice(0, 4))
-    // }
     useEffect(() => {
       if (screenWidth >= 1000) {
         setVisibleCategories(categories);
