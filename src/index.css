@@ -4,8 +4,7 @@
 Dark mode: #210124b0 */
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: Schibsted Grotesk;
   font-weight: 400;
 
   color-scheme: light dark;
@@ -19,7 +18,7 @@ Dark mode: #210124b0 */
 }
 
 a {
-  font-weight: 500;
+  font-weight: 450;
   color: #CEB1BE;
   text-decoration: inherit;
 }
@@ -30,6 +29,50 @@ a:hover {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+select {
+  appearance: none;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 8px 12px; 
+  border: 1px solid #ccc;
+  border-radius: 4px; 
+  background-color: #fff; 
+  color: inherit;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease; 
+  display: inline-block;
+  text-align: center;
+}
+
+select:focus {
+  border-color: #CEB1BE;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5); 
+}
+
+select::-ms-expand {
+  display: none; 
+}
+
+select:after {
+  content: " ▼"; 
+  font-size: 12px;
+  color: #aaa;
+  margin-left: 8px; 
+  pointer-events: none; 
+}
+
+
+select option {
+  padding: 8px 12px;
+  background-color: #fff;
+  color: #333;
+  border-bottom: 1px solid; 
+}
+
+select option:hover {
+  background-color: #f1f1f1; 
 }
 
 button {

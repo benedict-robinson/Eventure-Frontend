@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { ukCities, usCities } from "../../Info/cities.js"
+import "./Main.css"
 
 export default function TagLine({params, setParams, categoryName}) {
     const { city, countryCode } = params
@@ -30,8 +31,9 @@ export default function TagLine({params, setParams, categoryName}) {
       }
     
       return (
-        <div>
-          <label htmlFor="city-select">Showing{categoryName ? ` ${categoryName}` : ""} Events in </label>
+        <div className="tagline-container">
+          <label id="tagline-text" htmlFor="city-select">Showing{categoryName ? ` ${categoryName}` : ""} Events in </label>
+          <div className="tagline-selects">
           <select style={{width: "100px"}} id="city-select" value={city} onChange={handleChangeCity}>
             {cities.map((c, i) => (
               <option key={i} value={c}>
@@ -46,6 +48,7 @@ export default function TagLine({params, setParams, categoryName}) {
               </option>
             ))}
           </select>
+          </div>
         </div>
       );
 }

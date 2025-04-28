@@ -1,0 +1,42 @@
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.tagline-container {
+    width: 1000px;
+    border: 2px solid;
+    display: flex;
+    align-items: center;
+}
+#tagline-text {
+    margin: 10px;
+    font-size: 35px;
+}
+.tagline-selects {
+    width: 400px;
+    display: flex;
+}
+.tagline-container select {
+    flex: 1;
+    padding: 10px;
+    font-size: 35px;
+    margin: 2px;
+    height: 65px;
+}
+
+.eventslist-container {
+    border: 2px solid;
+    width: 1000px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.event-card {
+    border: 2px solid;
+    width: 200px;
+}
