@@ -7,7 +7,6 @@
 }
 .tagline-container {
     width: 1000px;
-    border: 2px solid;
     display: flex;
     align-items: center;
 }
@@ -28,15 +27,29 @@
 }
 
 .eventslist-container {
-    border: 2px solid;
     width: 1000px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
+    justify-content: center;
 }
 
 .event-card {
     border: 2px solid;
-    width: 200px;
+    width: 220px;
+    padding: 5px;
+    margin: 5px;
+    transition: transform 0.3s ease;
+}
+.event-card:hover {
+    border: 2px solid;
+    transform: scale(1.015);
+}
+
+.img-container {
+    width: 100%; /* Set the width of the container */
+    height: 100%; /* Optional: you can control the height of the container too */
+    max-height: 130px; /* Set the maximum height */
+    overflow: hidden; /* Hide any part of the image that exceeds the container */
+    position: relative;
 }
