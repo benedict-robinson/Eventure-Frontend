@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import EventsList from "./EventsList.jsx";
 import TagLine from "./TagLine.jsx";
 import { useParams } from "react-router-dom";
+import "./Main.css"
 
 const STORAGE_KEY = "myApp-params";
 

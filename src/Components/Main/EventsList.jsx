@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { fetchEvents } from "../../api.js"
 import EventCard from "./EventCard.jsx"
+import "./Main.css"
 
 
 export default function EventsList({params, categoryName}) {
