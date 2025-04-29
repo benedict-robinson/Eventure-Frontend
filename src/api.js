@@ -29,3 +29,34 @@ export const fetchUserByUsername = (username) => {
         return user
     })
 }
+
+export const fetchFavourites = (id) => {
+    return api.get(`/favourites/${id}`)
+    .then(({data: {events}}) => {
+        return events
+    })
+}
+
+export const fetchGoing = (id) => {
+    return api.get(`/going/${id}`)
+    .then(({data: {events}}) => {
+        return events
+    })
+}
+
+export const fetchMyEvents = (id) => {
+    return api.get(`/my-events/${id}`)
+    .then(({data: {events}}) => {
+        return events
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+export const postNewEvent = (username, eventObj) => {
+    return api.post(`/events/${username}`, eventObj)
+    .then(({data}) => {
+        return data
+    })
+}

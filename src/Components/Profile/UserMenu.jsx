@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react"
-import { UserContext } from "../../Contexts/UserContext.jsx"
 
 
-export default function UserMenu() {
-    const { user } = useContext(UserContext)
+
+export default function UserMenu({user}) {
+    
     return (
         <div className="menu-container">
             <Link to={"/account"}>

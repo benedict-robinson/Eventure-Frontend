@@ -14,3 +14,13 @@ export function formatDate(dateString) {
     const [hours, minutes] = time.split(':');
     return `${hours}:${minutes}`;
   }
+
+  export function convertToMilliseconds(dateString, timeString) {
+    console.log({dateString, timeString})
+    const [year, month, day] = dateString.split('-').map(Number); 
+    const [hour, minute] = timeString.split(':').map(Number);
+  
+    const date = new Date(year, month - 1, day, hour, minute);
+    return date.getTime();
+  }
+  

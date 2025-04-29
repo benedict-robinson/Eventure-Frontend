@@ -30,7 +30,7 @@ export default function UserSection() {
         </div>
       </Link>
       <div className="user-email">
-        {screenWidth > 612 ? <span className="email-text">user@example.com</span> : <></>}
+        {screenWidth > 612 ? <span className="email-text">{user.email}</span> : <></>}
       </div>
       <div className={`profile-dropdown ${showDropdown ? 'show' : ''}`}>
         <Link to={"/account"}><p>Account</p></Link>
