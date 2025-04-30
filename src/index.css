@@ -19,7 +19,6 @@ Dark mode: #210124b0 */
 
 a {
   font-weight: 450;
-  color: #8744ac;
   text-decoration: inherit;
 }
 a:hover {
@@ -89,10 +88,6 @@ button {
 button:hover {
   border-color: #210124;
 }
-/* button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-} */
 
 @media (prefers-color-scheme: light) {
   :root {
