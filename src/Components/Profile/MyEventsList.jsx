@@ -5,16 +5,21 @@ import EventCard from "../Main/EventCard.jsx"
 export default function MyEventsList({user}) {
   const [userMyEvents, setUserMyEvents] = useState([])
   useEffect(() => {
-    fetchMyEvents(user.user_id).then((response) => {
-      setUserMyEvents(response)
-    })
-  }, [user])
+    if (!user || !user.user_id) return;
+    fetchMyEvents(user.user_id)
+      .then((response) => {
+        setUserMyEvents(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [user]);
 
   return (
     <div className="my-events-container">
       <h2>My Events</h2>
       {userMyEvents.map((event, i) => {
-        return <EventCard event={event} key={i}/>
+        return <EventCard event={event} key={i} myEvent={true} />
       })}
     </div>
   )

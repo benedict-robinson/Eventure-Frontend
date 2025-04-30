@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import MainPage from './Main/MainPage.jsx'
 import EventPage from './EventPage/EventPage.jsx'
 import AccountPage from './Profile/AccountPage.jsx'
+import EventEditor from './EventPage/EventEditor.jsx'
 
 export default function RouteManager() {
   return (
@@ -11,6 +12,7 @@ export default function RouteManager() {
       <Route path="/event/:eventId" element={<EventPage />} />
       <Route path="/account" element={<AccountPage />} />
       <Route path="/account/:item" element={<AccountPage />} />
+      <Route path="/event/:eventId/edit" element={<EventEditor />} />
     </Routes>
   )
 }

@@ -5,6 +5,7 @@ import EventCard from "../Main/EventCard.jsx"
 export default function FavouritesList({user}) {
   const [userFaves, setUserFaves] = useState([])
   useEffect(() => {
+    if (!user || !user.user_id) return;
     fetchFavourites(user.user_id).then((response) => {
       setUserFaves(response)
     })

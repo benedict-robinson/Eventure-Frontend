@@ -5,6 +5,7 @@ import EventCard from "../Main/EventCard.jsx"
 export default function GoingList({user}) {
   const [userGoing, setUserGoing] = useState([])
   useEffect(() => {
+    if (!user || !user.user_id) return;
     fetchGoing(user.user_id).then((response) => {
       setUserGoing(response)
     })

@@ -1,13 +1,16 @@
 import HeartIconComp from "./HeartIcon.jsx";
 import CalendarIconComp from "./CalendarIcon.jsx";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./Main.css"
 import { formatDate } from "../../utils.js";
 import { useEffect, useState } from "react";
+import PencilButton from "./PencilButton.jsx";
 
-export default function EventCard({ event, fave = false, going = false }) {
+
+export default function EventCard({ event, fave = false, going = false, myEvent = false }) {
   const [isFave, setIsFave] = useState(false)
   const [isGoing, setIsGoing] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     setIsFave(fave)
@@ -20,6 +23,10 @@ export default function EventCard({ event, fave = false, going = false }) {
   }
   function handleClickGoing() {
     setIsGoing(!isGoing)
+  }
+  function handleClickEdit() {
+    console.log(event.event_id)
+    navigate(`/event/${event.event_id}/edit`)
   }
 
   return (
@@ -43,6 +50,7 @@ export default function EventCard({ event, fave = false, going = false }) {
           <button onClick={handleClickFave}><HeartIconComp isFave={isFave} /></button>
           <button onClick={handleClickGoing}><CalendarIconComp isGoing={isGoing} /></button>
         </div>
+        {myEvent ? <PencilButton editFunc={handleClickEdit} /> : <></>}
       </div>
     </div>
   )

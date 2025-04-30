@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { fetchEventById, fetchMyEvents } from "../../api.js"
+import { fetchEventById } from "../../api.js"
 import HeartIconComp from "../Main/HeartIcon.jsx";
 import CalendarIconComp from "../Main/CalendarIcon.jsx";
 import "./EventPage.css"
@@ -13,26 +13,16 @@ export default function EventPage() {
     const { eventId } = useParams()
     const [isFave, setIsFave] = useState(false)
     const [isGoing, setIsGoing] = useState(false)
-    const [isOwner, setIsOwner] = useState(false)
     const { user } = useContext(UserContext)
 
     useEffect(() => {
         fetchEventById(eventId)
           .then((response) => {
             setEvent(response);
-            return fetchMyEvents(user.user_id);
-          })
-          .then((response) => {
-            console.log(response)
-            const owner = response.filter(e => e.event_id === eventId);
-            if (owner.length === 1) {
-              setIsOwner(true);
-            }
           })
           .catch((err) => {
             console.log(err);
             setEvent({});
-            setIsOwner(false);
           })
           .finally(() => {
             setIsLoading(false);
@@ -54,16 +44,11 @@ export default function EventPage() {
         )
     }
 
-    if (isOwner) {
-        return (
-            <p>hello</p>
-        )
-    }
-
     return (
         <div className="outer-container">
             <div className="event-page-container">
                 <img src={event.img.url} />
+                <input type="text" id="name" placeholder={event.name} />
                 <h1>{event.name}</h1>
                 <div className="time-and-buttons">
                     <p>
