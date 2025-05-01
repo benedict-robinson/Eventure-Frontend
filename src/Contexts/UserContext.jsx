@@ -8,16 +8,17 @@ export const UserProvider = ({ children }) => {
   const username = localStorage.getItem("username") || "user1";
 
   const [user, updateUserState] = useState({});
-  useEffect(() => {
-    fetchUserByUsername(username).then((response) => {
-      setUser(response); 
-    });
-  }, [username]);
 
   const setUser = (newUser) => {
     localStorage.setItem("username", newUser.username);
     updateUserState(newUser); 
   };
+
+  useEffect(() => {
+    fetchUserByUsername(username).then((response) => {
+      setUser(response); 
+    });
+  }, [username]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

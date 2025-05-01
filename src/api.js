@@ -60,3 +60,9 @@ export const postNewEvent = (username, eventObj) => {
         return data
     })
 }
+
+export const postNewUser = (userObj) => {
+    return api.post("/users", userObj).then(({data}) => {
+        return data
+    })
+}

@@ -3,6 +3,8 @@ import MainPage from './Main/MainPage.jsx'
 import EventPage from './EventPage/EventPage.jsx'
 import AccountPage from './Profile/AccountPage.jsx'
 import EventEditor from './EventPage/EventEditor.jsx'
+import SignIn from './Profile/SignIn.jsx'
+import NewUser from "./Profile/NewUser.jsx"
 
 export default function RouteManager() {
   return (
@@ -13,6 +15,8 @@ export default function RouteManager() {
       <Route path="/account" element={<AccountPage />} />
       <Route path="/account/:item" element={<AccountPage />} />
       <Route path="/event/:eventId/edit" element={<EventEditor />} />
+      <Route path="/sign-in" element={<SignIn />} />
+      <Route path="/new-user" element={<NewUser />} />
     </Routes>
   )
 }

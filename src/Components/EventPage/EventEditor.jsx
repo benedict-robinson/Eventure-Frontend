@@ -19,7 +19,6 @@ export default function EventEditor() {
         if (filteredEvents.length === 0) {
           throw new Error("Event not found");
         }
-        console.log(filteredEvents[0])
         setEvent(filteredEvents[0]);
       })
       .catch((err) => {
@@ -40,6 +39,14 @@ export default function EventEditor() {
       </div>
     )
   }
+
+  if (isLoading) {
+    return (
+        <div>
+            <p>Loading...</p>
+        </div>
+    )
+}
 
   if (event) {
   return (
