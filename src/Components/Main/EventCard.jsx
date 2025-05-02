@@ -3,14 +3,19 @@ import CalendarIconComp from "./CalendarIcon.jsx";
 import { Link, useNavigate } from "react-router-dom"
 import "./Main.css"
 import { formatDate } from "../../utils.js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PencilButton from "./PencilButton.jsx";
+import BinButton from "./BinButton.jsx";
+import { deleteEvent } from "../../api.js";
+import { UserContext } from "../../Contexts/UserContext.jsx";
 
 
-export default function EventCard({ event, fave = false, going = false, myEvent = false }) {
+export default function EventCard({ event, fave = false, going = false, myEvent = false, setUserMyEvents }) {
   const [isFave, setIsFave] = useState(false)
   const [isGoing, setIsGoing] = useState(false)
+  const [deleteQ, setDeleteQ] = useState(false)
   const navigate = useNavigate()
+  const {user} = useContext(UserContext)
 
   useEffect(() => {
     setIsFave(fave)
@@ -25,8 +30,23 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
     setIsGoing(!isGoing)
   }
   function handleClickEdit() {
-    console.log(event.event_id)
     navigate(`/event/${event.event_id}/edit`)
+  }
+  function handleClickDelete() {
+    setDeleteQ(!deleteQ)
+  }
+  function handleDelete() {
+    deleteEvent(user.username, event.event_id)
+      .then(() => {
+        if (setUserMyEvents) {
+          setUserMyEvents(prev => prev.filter(e => e.event_id !== event.event_id));
+        }
+        setDeleteQ(false);
+      })
+      .catch((err) => {
+        console.error("Failed to delete event:", err);
+        alert("Something went wrong while deleting the event.");
+      });
   }
 
   return (
@@ -50,7 +70,17 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
           <button onClick={handleClickFave}><HeartIconComp isFave={isFave} /></button>
           <button onClick={handleClickGoing}><CalendarIconComp isGoing={isGoing} /></button>
         </div>
-        {myEvent ? <PencilButton editFunc={handleClickEdit} /> : <></>}
+        <div className="edit-delete">
+          {myEvent ? <PencilButton editFunc={handleClickEdit} /> : <></>}
+          {myEvent ? <BinButton deleteFunc={handleClickDelete} /> : <></>}
+        </div>
+        {deleteQ ?
+          <div>
+            <p>Are you sure you want to delete this article?</p>
+            <button onClick={handleDelete}>Yes</button>
+            <button onClick={handleClickDelete}>No</button>
+          </div>
+          : <></>}
       </div>
     </div>
   )
