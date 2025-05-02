@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from "../../Contexts/UserContext.jsx"
-import { fetchMyEvents } from "../../api.js"
-import { formatDate, formatTime } from "../../utils.js"
+import { fetchMyEvents, patchEvent } from "../../api.js"
 
 export default function EventEditor() {
   const { eventId } = useParams()
@@ -10,6 +9,13 @@ export default function EventEditor() {
   const [event, setEvent] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [newEvent, setNewEvent] = useState({})
+  const navigate = useNavigate()
+
+  const date = new Date();
+  const formattedLocalDate = date.getFullYear() + '-' +
+    String(date.getMonth() + 1).padStart(2, '0') + '-' +
+    String(date.getDate()).padStart(2, '0');
 
   useEffect(() => {
     if (!user || !user.user_id) return;
@@ -32,6 +38,36 @@ export default function EventEditor() {
       });
   }, [eventId, user]);
 
+  function editEvent(e) {
+    const key = e.target.id;
+    const value = e.target.value;
+    if (key === "url") {
+      setNewEvent((prev) => ({...prev, img: {[key]: value}}))
+      return
+    }
+    setNewEvent((prev) => ({...prev, [key]: value}))
+  }
+
+  function handleTimeEdit(e) {
+    const key = e.target.id;
+    const value = e.target.value;
+    setNewEvent((prev) => ({...prev, date_and_time: {[key]: value}}))
+  }
+
+  function handleDiscard() {
+    navigate(`/event/${eventId}`)
+  }
+
+  function submitEdits() {
+    patchEvent(user.username, eventId, newEvent)
+    .then(() => {
+      navigate(`/event/${eventId}`)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
   if (error) {
     return (
       <div>
@@ -42,34 +78,54 @@ export default function EventEditor() {
 
   if (isLoading) {
     return (
-        <div>
-            <p>Loading...</p>
-        </div>
+      <div>
+        <p>Loading...</p>
+      </div>
     )
-}
+  }
 
   if (event) {
-  return (
-          <div className="outer-container">
-              <div className="event-page-container">
-                  <img src={event.img.url} />
-                  <h1>{event.name}</h1>
-                  <div className="time-and-buttons">
-                      <p>
-                          {event.date_and_time?.start_date && typeof event.date_and_time?.start_date === "string"
-                              ? formatDate(event.date_and_time.start_date)
-                              : "Date TBA"}
-                          {" - "}
-                          {event.date_and_time?.start_time && typeof event.date_and_time?.start_time === "string"
-                              ? formatTime(event.date_and_time.start_time)
-                              : "Time TBA"}
-                      </p>
-                  </div>
-                  <p id="description">{event.description ? event.description : `${EventTarget.name} in ${event.location.city}`}</p>
-                  <p>{event.info}</p>
-                  {event.url ? <p>For more info visit: <a href={event.url}>{event.url}</a></p> : <></>}
-              </div>
+    return (
+      <div className="outer-container">
+        <div className="event-page-container">
+          <img src={event.img.url} />
+          <input type="file" id="url" onChange={editEvent}/>
+          <label htmlFor="url">Change Image</label>
+          <input type="text" id="name" placeholder={event.name} onChange={editEvent}/>
+          <div className="date-time">
+            <input
+              type="date"
+              id="start_date"
+              min={formattedLocalDate}
+              onChange={handleTimeEdit} />
+            <label htmlFor="start_date">Start Date</label>
+            <input
+              type="time"
+              id="start_time"
+              onChange={handleTimeEdit} />
+              <label htmlFor="start_time">Start Time</label>
+              <input
+              type="date"
+              id="end_date"
+              min={formattedLocalDate}
+              onChange={handleTimeEdit} />
+            <label htmlFor="end_date">End Date</label>
+            <input
+              type="time"
+              id="end_time"
+              onChange={handleTimeEdit} />
+              <label htmlFor="end_time">End Time</label>
           </div>
-      )
-    }
+          <textarea id="description" placeholder={event.description ? event.description : `${EventTarget.name} in ${event.location.city}`} onChange={editEvent}/>
+          <textarea id="info" placeholder="Any extra info..." onChange={editEvent}/>
+          <label htmlFor="url">For more info visit: </label>
+          <input type="text" id="url" placeholder={event.url ? event.url : "Event Website..."} onChange={editEvent}/>
+          <div>
+            <button onClick={submitEdits}>Save Changes</button>
+            <button onClick={handleDiscard}>Discard Changes</button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 }

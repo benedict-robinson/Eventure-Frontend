@@ -61,6 +61,13 @@ export const postNewEvent = (username, eventObj) => {
     })
 }
 
+export const patchEvent = (username, eventId, eventObj) => {
+    return api.patch(`/events/${username}/event/${eventId}`, eventObj)
+    .then(({data}) => {
+        return data
+    })
+}
+
 export const deleteEvent = (username, eventId) => {
     return api.delete(`/events/${username}/event/${eventId}`).then(({data}) => {
         return data
