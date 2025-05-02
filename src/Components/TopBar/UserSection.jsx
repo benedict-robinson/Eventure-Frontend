@@ -22,6 +22,23 @@ export default function UserSection() {
     }, 100);
   }
 
+  if (!user.user_id) {
+    return (
+      <div className="user-section" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <Link to={"/sign-in"}>
+        <div className="user-icon">
+          <UserIconComp id="user-icon" />
+        </div>
+      </Link>
+      <Link to={"/sign-in"}>
+      <div className="user-email">
+        {screenWidth > 612 ? <span className="email-text">Sign In</span> : <></>}
+      </div>
+      </Link>
+    </div>
+    )
+  }
+
   return (
     <div className="user-section" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <Link to={"/account"}>

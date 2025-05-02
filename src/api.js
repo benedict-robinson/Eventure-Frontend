@@ -55,8 +55,16 @@ export const fetchMyEvents = (id) => {
 }
 
 export const postNewEvent = (username, eventObj) => {
+    eventObj.is_staff = true
+    console.log({eventObj})
     return api.post(`/events/${username}`, eventObj)
     .then(({data}) => {
+        return data
+    })
+}
+
+export const postNewUser = (userObj) => {
+    return api.post("/users", userObj).then(({data}) => {
         return data
     })
 }
