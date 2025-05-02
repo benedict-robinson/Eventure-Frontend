@@ -48,7 +48,6 @@ export default function EventPage() {
         <div className="outer-container">
             <div className="event-page-container">
                 <img src={event.img.url} />
-                <input type="text" id="name" placeholder={event.name} />
                 <h1>{event.name}</h1>
                 <div className="time-and-buttons">
                     <p>

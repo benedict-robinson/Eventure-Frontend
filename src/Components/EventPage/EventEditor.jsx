@@ -33,7 +33,6 @@ export default function EventEditor() {
         setError("Not Authorized");
       })
       .finally(() => {
-        console.log(event)
         setIsLoading(false);
       });
   }, [eventId, user]);
