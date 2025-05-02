@@ -72,8 +72,9 @@ export default function NewUser() {
                 <input type="text" id="username" onChange={handleChange}/>
                 <label htmlFor="email">Email</label>
                 <input type="text" id="email" onChange={handleChange}/>
-                <label htmlFor='image_url'>Profile Picture</label>
-                <input type="file" id="image_url" accept="image/*" onChange={handleChange}/>
+                <label htmlFor='image_url'>Profile Picture (URL)</label>
+                <input type="text" id="image_url" onChange={handleChange}/>
+                <p>Unfortunately we can only accept images by URL at the moment</p>
                 <label htmlFor="is_staff">Are you staff?</label>
                 <input type="checkbox" id="is_staff" onChange={handleChange}/>
             </form>
