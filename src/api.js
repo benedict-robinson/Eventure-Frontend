@@ -55,16 +55,26 @@ export const fetchMyEvents = (id) => {
 }
 
 export const postNewEvent = (username, eventObj) => {
-    eventObj.is_staff = true
-    console.log({eventObj})
     return api.post(`/events/${username}`, eventObj)
     .then(({data}) => {
         return data
     })
 }
 
+export const deleteEvent = (username, eventId) => {
+    return api.delete(`/events/${username}/event/${eventId}`).then(({data}) => {
+        return data
+    })
+}
+
 export const postNewUser = (userObj) => {
     return api.post("/users", userObj).then(({data}) => {
+        return data
+    })
+}
+
+export const deleteUser = (username) => {
+    return api.delete(`/users/${username}`).then(({data}) => {
         return data
     })
 }
