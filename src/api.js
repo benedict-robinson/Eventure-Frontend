@@ -68,3 +68,9 @@ export const postNewUser = (userObj) => {
         return data
     })
 }
+
+export const deleteUser = (username) => {
+    return api.delete(`/users/${username}`).then(({data}) => {
+        return data
+    })
+}
