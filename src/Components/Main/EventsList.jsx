@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { fetchEvents } from "../../api.js"
 import EventCard from "./EventCard.jsx"
 import "./Main.css"
+import Loader from "./Loader.jsx"
+import "./Loader.css"
 
 
 export default function EventsList({params, categoryName}) {
@@ -30,8 +32,8 @@ export default function EventsList({params, categoryName}) {
 
     if (isLoading) {
         return (
-            <div>
-                <p>Loading...</p>
+            <div className="loader-container">
+                <Loader />
             </div>
         )
     }
