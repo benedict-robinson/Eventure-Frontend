@@ -5,10 +5,11 @@ import { postNewUser } from "../../api.js"
 
 
 export default function NewUser() {
-    const [newUser, setNewUser] = useState({is_staff: null})
+    const [newUser, setNewUser] = useState({is_staff: false})
     const navigate = useNavigate()
     const {setUser} = useContext(UserContext)
     const [isErr, setIsErr] = useState(false)
+    const [errMsg, setErrMsg] = useState("")
 
     function handleChange(e) {
         console.log(newUser)
@@ -37,6 +38,11 @@ export default function NewUser() {
 
     function handleSubmit(e) {
         e.preventDefault()
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        if (!emailRegex.test(newUser.email)) {
+            setErrMsg("Invalid Email")
+            return
+        }
         console.log(newUser)
         postNewUser(newUser).then((response) => {
             console.log(response)
@@ -72,6 +78,7 @@ export default function NewUser() {
                 <input type="checkbox" id="is_staff" onChange={handleChange}/>
             </form>
             <button onClick={handleSubmit} disabled={!newUser.username || !newUser.email|| !Object.keys(newUser).includes("is_staff")}>Sign In</button>
+            {errMsg ? <p>{errMsg}</p> : <></>}
         </div>
     )
 }

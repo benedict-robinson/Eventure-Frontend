@@ -8,7 +8,7 @@ export default function SignIn() {
     const navigate = useNavigate()
     const [existingUser, setExistingUser] = useState({})
     const { setUser } = useContext(UserContext)
-    const [noUser, setNoUser] = useState("")
+    const [errMsg, setErrMsg] = useState("")
     function handleCreate() {
         navigate("/new-user")
     }
@@ -24,19 +24,24 @@ export default function SignIn() {
     }
     function handleSignIn(e) {
         e.preventDefault()
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        if (!emailRegex.test(existingUser.email)) {
+            setErrMsg("Invalid Email")
+            return
+        }
         fetchUserByUsername(existingUser.username).then((user) => {
-            setNoUser("")
+            setErrMsg("")
             if (user.email === existingUser.email) {
                 localStorage.setItem("username", user.username)
                 setUser({ username: user.username })
                 navigate("/")
             } else {
-                setNoUser("Email does not match Username")
+                setErrMsg("Email does not match Username")
             }
         })
             .catch((err) => {
                 if (err.status === 404) {
-                    setNoUser("No User Found")
+                    setErrMsg("No User Found")
                 }
             })
     }
@@ -50,7 +55,7 @@ export default function SignIn() {
                     <label>Email</label>
                     <input type="text" placeholder="joebloggs@example.com" id="email" onChange={handleChange} />
                     <button onClick={handleSignIn} disabled={!(existingUser.username && existingUser.email)}>Sign In</button>
-                    {noUser ? <p>{noUser}</p> : <></>}
+                    {errMsg ? <p>{errMsg}</p> : <></>}
                 </div>
                 <h2>Previous Users</h2>
                 <button onClick={handlePreviousUser}>
