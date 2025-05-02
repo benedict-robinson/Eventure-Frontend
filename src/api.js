@@ -73,6 +73,12 @@ export const postNewUser = (userObj) => {
     })
 }
 
+export const patchUser = (username, userObj) => {
+    return api.patch(`/users/${username}`, userObj).then(({data}) => {
+        return data
+    })
+}
+
 export const deleteUser = (username) => {
     return api.delete(`/users/${username}`).then(({data}) => {
         return data
