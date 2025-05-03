@@ -8,7 +8,7 @@ import LogOut from "./LogOut.jsx";
 import UserProfile from "./UserProfile.jsx";
 import { useContext } from "react"
 import { UserContext } from "../../Contexts/UserContext.jsx"
-import "./Profile.css"
+import "./CSS/Profile.css"
 
 const componentMap = {
     favourites: FavouritesList,

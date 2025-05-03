@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { UserContext } from "../../Contexts/UserContext.jsx"
 import { useNavigate } from "react-router-dom"
 import { deleteUser, patchUser } from "../../api.js"
-import "./Profile.css"
+import "./CSS/Profile.css"
 
 
 export default function UserProfile() {

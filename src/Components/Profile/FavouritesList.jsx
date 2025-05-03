@@ -1,15 +1,31 @@
 import { useEffect, useState } from "react"
 import { fetchFavourites } from "../../api.js"
 import EventCard from "../Main/EventCard.jsx"
+import Loader from "../Main/Loader.jsx"
 
 export default function FavouritesList({user}) {
   const [userFaves, setUserFaves] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     if (!user || !user.user_id) return;
     fetchFavourites(user.user_id).then((response) => {
       setUserFaves(response)
     })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() => {
+      setIsLoading(false)
+    })
   }, [user])
+
+  if (isLoading) {
+      return (
+        <div className="loader-container">
+          <Loader />
+        </div>
+      )
+    }
 
   return (
     <div className="favourites-container">
