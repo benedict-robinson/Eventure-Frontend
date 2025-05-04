@@ -8,6 +8,7 @@ import PencilButton from "./PencilButton.jsx";
 import BinButton from "./BinButton.jsx";
 import { deleteEvent, deleteNewFave, deleteNewGoing, postNewFave, postNewGoing } from "../../api.js";
 import { UserContext } from "../../Contexts/UserContext.jsx";
+import { gapi } from 'gapi-script'
 
 
 export default function EventCard({ event, fave = false, going = false, myEvent = false, setUserMyEvents, setUserFaves, setUserGoing }) {
@@ -16,6 +17,7 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
   const [deleteQ, setDeleteQ] = useState(false)
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
+  const [calendarQ, setCalendarQ] = useState(false)
 
   const apiKey = import.meta.env.VITE_EVENTURE_GOOGLE_API_KEY
   const accessToken = import.meta.env.VITE_EVENTURE_GOOGLE_ACCESS_TOKEN
@@ -24,6 +26,33 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
     setIsFave(fave)
     setIsGoing(going)
   }, [])
+
+  const addEvent = (googleEvent) => {
+    function initiate() {
+        gapi.client
+            .request({
+                path: `https://www.googleapis.com/calendar/v3/calendars/primary/events`,
+                method: 'POST',
+                body: googLeEvent,
+                headers: {
+                    'Content-type': 'application/json',
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            })
+            .then(
+                (response) => {
+                    return [true, response]
+                },
+                function (err) {
+                    console.log(err)
+                    return [false, err]
+                }
+            )
+    }
+    gapi.load('client', initiate)
+}
+
+function addEventToGoogle()
 
 
   function handleClickFave() {
@@ -52,6 +81,7 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
     if (!isGoing) {
       postNewGoing(user.user_id, { user_id: user.user_id, event_id: event.event_id }).then(() => {
         setIsGoing(!isGoing)
+        setCalendarQ(true)
       })
         .catch((err) => {
           console.log(err)
@@ -85,6 +115,18 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
         console.error("Failed to delete event:", err);
         alert("Something went wrong while deleting the event.");
       });
+  }
+
+  if (calendarQ) {
+    return (
+      <div>
+        <p>Do you want to add this event to your Google Calendar?</p>
+        <div>
+          <button>Yes</button>
+          <button onClick={() => {setCalendarQ(false)}}>No</button>
+        </div>
+      </div>
+    )
   }
 
   return (
