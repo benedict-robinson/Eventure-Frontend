@@ -8,6 +8,7 @@ import "./CSS/Lists.css"
 export default function FavouritesList({user}) {
   const [userFaves, setUserFaves] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [errMsg, setErrMsg] = useState("")
   useEffect(() => {
     if (!user || !user.user_id) return;
     fetchFavourites(user.user_id).then((response) => {
@@ -15,6 +16,7 @@ export default function FavouritesList({user}) {
     })
     .catch((err) => {
       console.log(err)
+      setErrMsg("No Favourite Events - Use the heart icon to favourite events")
     })
     .finally(() => {
       setIsLoading(false)
@@ -36,6 +38,7 @@ export default function FavouritesList({user}) {
       {userFaves.map((event, i) => {
         return <EventCard event={event} setUserFaves={setUserFaves} fave={true} key={i} />
       })}
+      {errMsg ? <p>{errMsg}</p> : <></>}
       </div>
     </div>
   )
