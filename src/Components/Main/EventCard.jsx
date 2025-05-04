@@ -6,11 +6,11 @@ import { formatDate } from "../../utils.js";
 import { useContext, useEffect, useState } from "react";
 import PencilButton from "./PencilButton.jsx";
 import BinButton from "./BinButton.jsx";
-import { deleteEvent, deleteNewFave, postNewFave } from "../../api.js";
+import { deleteEvent, deleteNewFave, deleteNewGoing, postNewFave, postNewGoing } from "../../api.js";
 import { UserContext } from "../../Contexts/UserContext.jsx";
 
 
-export default function EventCard({ event, fave = false, going = false, myEvent = false, setUserMyEvents, setUserFaves }) {
+export default function EventCard({ event, fave = false, going = false, myEvent = false, setUserMyEvents, setUserFaves, setUserGoing }) {
   const [isFave, setIsFave] = useState(false)
   const [isGoing, setIsGoing] = useState(false)
   const [deleteQ, setDeleteQ] = useState(false)
@@ -46,7 +46,23 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
     }
   }
   function handleClickGoing() {
-    setIsGoing(!isGoing)
+    if (!isGoing) {
+      postNewGoing(user.user_id, {user_id: user.user_id, event_id: event.event_id}).then(() => {
+        setIsGoing(!isGoing)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+    if (isGoing) {
+      deleteNewGoing(user.user_id, event.event_id).then(() => {
+        setUserGoing((prev) => {
+          const newGoing = prev.filter(e => e.event_id !== event.event_id)
+          return newGoing
+        })
+        setIsGoing(!isGoing)
+      })
+    }
   }
   function handleClickEdit() {
     navigate(`/event/${event.event_id}/edit`)

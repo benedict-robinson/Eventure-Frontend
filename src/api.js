@@ -110,3 +110,9 @@ export const postNewGoing = (userId, goingObj) => {
     })
 }
 
+export const deleteNewGoing = (userId, goingId) => {
+    return api.delete(`/going/${userId}/event/${goingId}`).then(({data}) => {
+        return data
+    })
+}
+
