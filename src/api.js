@@ -91,3 +91,22 @@ export const deleteUser = (username) => {
         return data
     })
 }
+
+export const postNewFave = (userId, faveObj) => {
+    return api.post(`/favourites/${userId}`, faveObj).then(({data}) => {
+        return data
+    })
+}
+
+export const deleteNewFave = (userId, faveId) => {
+    return api.delete(`/favourites/${userId}/event/${faveId}`).then(({data}) => {
+        return data
+    })
+}
+
+export const postNewGoing = (userId, goingObj) => {
+    return api.post(`/going/${userId}`, goingObj).then(({data}) => {
+        return data
+    })
+}
+

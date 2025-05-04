@@ -34,7 +34,7 @@ export default function FavouritesList({user}) {
       <h2>Favourited Events</h2>
       <div className="lists-container">
       {userFaves.map((event, i) => {
-        return <EventCard event={event} fave={true} key={i} />
+        return <EventCard event={event} setUserFaves={setUserFaves} fave={true} key={i} />
       })}
       </div>
     </div>
