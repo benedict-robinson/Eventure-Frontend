@@ -15,6 +15,7 @@ export default function EventPage() {
     const { eventId } = useParams()
     const [isFave, setIsFave] = useState(false)
     const [isGoing, setIsGoing] = useState(false)
+    const [errMsg, setErrMsg] = useState("")
     const { user } = useContext(UserContext)
 
     useEffect(() => {
@@ -25,6 +26,8 @@ export default function EventPage() {
           .catch((err) => {
             console.log(err);
             setEvent({});
+            setErrMsg("No Event Found")
+            setIsLoading(false)
           })
           .finally(() => {
             setIsLoading(false);
@@ -42,6 +45,14 @@ export default function EventPage() {
         return (
             <div className="loader-container">
                 <Loader />
+            </div>
+        )
+    }
+
+    if (errMsg) {
+        return (
+            <div>
+                <h2>{errMsg}</h2>
             </div>
         )
     }

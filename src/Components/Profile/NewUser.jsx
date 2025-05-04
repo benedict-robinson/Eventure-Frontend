@@ -13,8 +13,6 @@ export default function NewUser() {
     const [errMsg, setErrMsg] = useState("")
 
     function handleChange(e) {
-        console.log(newUser)
-        console.log(Object.keys(newUser))
         const key = e.target.id;
     
         if (e.target.type === "file") {
@@ -44,8 +42,7 @@ export default function NewUser() {
             setErrMsg("Invalid Email")
             return
         }
-        postNewUser(newUser).then((response) => {
-            console.log(response)
+        postNewUser(newUser).then(() => {
             setUser(newUser)
             navigate("/")
         })
