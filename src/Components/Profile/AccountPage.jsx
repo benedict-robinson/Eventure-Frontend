@@ -6,9 +6,10 @@ import MyEventsList from "./MyEventsList.jsx";
 import CreateEvent from "./CreateEvent.jsx";
 import LogOut from "./LogOut.jsx";
 import UserProfile from "./UserProfile.jsx";
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../Contexts/UserContext.jsx"
-import "./Profile.css"
+import useScreenWidth from "../../Custom Hooks/useScreenWidth.jsx"
+import "./CSS/Profile.css"
 
 const componentMap = {
     favourites: FavouritesList,
@@ -22,11 +23,22 @@ export default function AccountPage() {
     const { item } = useParams();
     const Component = componentMap[item];
     const { user } = useContext(UserContext)
+    const screenWidth = useScreenWidth()
+    const [showNav, setShowNav] = useState(true)
+
+    useEffect(() => {
+      if (screenWidth < 701) {
+        setShowNav(false)
+      }
+      if (screenWidth >= 701) {
+        setShowNav(true)
+      }
+    }, [screenWidth])
 
     if (Component) {
         return (
             <div className="account-page-container">
-            <UserMenu user={user} />
+            {showNav ? <UserMenu user={user} /> : <></>}
             <div className="user-container">
             <Component user={user} />
             </div>
@@ -35,7 +47,7 @@ export default function AccountPage() {
     }
   return (
     <div className="account-page-container">
-    <UserMenu user={user} />
+    {showNav ? <UserMenu user={user} /> : <></>}
     <div className="user-container">
     <UserProfile user={user} />
     </div>

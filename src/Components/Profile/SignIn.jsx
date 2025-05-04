@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../Contexts/UserContext.jsx"
 import { fetchUserByUsername } from "../../api.js"
+import "./CSS/SignIn.css"
 
 
 export default function SignIn() {
@@ -46,27 +47,35 @@ export default function SignIn() {
             })
     }
     return (
-        <div>
-            <div>
+        <div className="sign-in-page-container">
+            <div className="sign-in-container">
                 <h2>Sign In</h2>
-                <div>
-                    <label>Username</label>
-                    <input type="text" placeholder="Joe Bloggs" id="username" onChange={handleChange} />
-                    <label>Email</label>
-                    <input type="text" placeholder="joebloggs@example.com" id="email" onChange={handleChange} />
-                    <button onClick={handleSignIn} disabled={!(existingUser.username && existingUser.email)}>Sign In</button>
-                    {errMsg ? <p>{errMsg}</p> : <></>}
+                <div className="login-container">
+                    <div className="username-div">
+                        <label id="username-label">Username</label>
+                        <input type="text" placeholder="Joe Bloggs" id="username" onChange={handleChange} />
+                    </div>
+                    <div className="email-div">
+                        <label id="email-lable">Email</label>
+                        <input type="text" placeholder="joebloggs@example.com" id="email" onChange={handleChange} />
+                    </div>
+                    <div className="sign-in-button-container">
+                        <button id="sign-in-button" onClick={handleSignIn} disabled={!(existingUser.username && existingUser.email)}>Sign In</button>
+                        {errMsg ? <p id="error-msg">{errMsg}</p> : <></>}
+                    </div>
                 </div>
+            </div>
+            <div className="prev-user-container">
                 <h2>Previous Users</h2>
-                <button onClick={handlePreviousUser}>
-                    <div>
-                        <img src="https://avatar.iran.liara.run/public/boy?username=Ash" />
-                        <p>user1</p>
+                <button id="user-button" onClick={handlePreviousUser}>
+                    <div className="user-details-container">
+                        <img id="user-pic" src="https://avatar.iran.liara.run/public/boy?username=Ash" />
+                        <p id="user-username">user1</p>
                     </div>
                 </button>
-                <div>
-                    <button onClick={handleCreate}>Create New Account</button>
-                </div>
+            </div>
+            <div className="new-account-button-container"> 
+                <button onClick={handleCreate}>Create New Account</button>
             </div>
         </div>
     )

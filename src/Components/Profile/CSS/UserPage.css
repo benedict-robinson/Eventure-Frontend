@@ -1,0 +1,119 @@
+.user-page-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+  }
+  
+  .user-info-div {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .user-info-div h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .user-info-div img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+  }
+  
+  .user-info-div p {
+    font-size: 1rem;
+    color: #444;
+    margin: 0.2rem 0;
+  }
+  
+  .user-info-div input[type="text"] {
+    font-size: 1rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    width: 100%;
+  }
+  
+  .edit-delete-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .edit-delete-buttons button {
+    background-color: #3b0341;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  #delete-button {
+    background-color: #747474;
+  }
+  
+  .edit-delete-buttons button:hover {
+    opacity: 0.9;
+  }
+  
+  .delete-q-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 2rem;
+    margin-top: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+  .delete-q-container h3 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  
+  .delete-q-container .buttons-div {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .delete-q-container button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    border-radius: 0.75rem;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .delete-q-container button:first-child {
+    background-color: #ef4444;
+    color: white;
+  }
+  
+  .delete-q-container button:last-child {
+    background-color: #6b7280;
+    color: white;
+  }
+  

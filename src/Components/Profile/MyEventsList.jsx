@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { fetchMyEvents } from "../../api.js"
 import EventCard from "../Main/EventCard.jsx"
+import Loader from "../Main/Loader.jsx"
 
 export default function MyEventsList({user}) {
   const [userMyEvents, setUserMyEvents] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     if (!user || !user.user_id) return;
     fetchMyEvents(user.user_id)
@@ -12,15 +14,28 @@ export default function MyEventsList({user}) {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [user]);
+
+  if (isLoading) {
+    return (
+      <div className="loader-container">
+        <Loader />
+      </div>
+    )
+  }
 
   return (
     <div className="my-events-container">
       <h2>My Events</h2>
+      <div className="lists-container">
       {userMyEvents.map((event, i) => {
         return <EventCard event={event} key={i} myEvent={true} setUserMyEvents={setUserMyEvents}/>
       })}
+      </div>
     </div>
   )
 }

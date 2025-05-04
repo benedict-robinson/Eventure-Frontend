@@ -6,6 +6,8 @@ import CalendarIconComp from "../Main/CalendarIcon.jsx";
 import "./EventPage.css"
 import { formatDate, formatTime } from "../../utils.js";
 import { UserContext } from "../../Contexts/UserContext.jsx";
+import Loader from "../Main/Loader.jsx";
+import "../Main/Loader.css"
 
 export default function EventPage() {
     const [event, setEvent] = useState({})
@@ -13,6 +15,7 @@ export default function EventPage() {
     const { eventId } = useParams()
     const [isFave, setIsFave] = useState(false)
     const [isGoing, setIsGoing] = useState(false)
+    const [errMsg, setErrMsg] = useState("")
     const { user } = useContext(UserContext)
 
     useEffect(() => {
@@ -23,6 +26,8 @@ export default function EventPage() {
           .catch((err) => {
             console.log(err);
             setEvent({});
+            setErrMsg("No Event Found")
+            setIsLoading(false)
           })
           .finally(() => {
             setIsLoading(false);
@@ -38,8 +43,16 @@ export default function EventPage() {
 
     if (isLoading) {
         return (
+            <div className="loader-container">
+                <Loader />
+            </div>
+        )
+    }
+
+    if (errMsg) {
+        return (
             <div>
-                <p>Loading...</p>
+                <h2>{errMsg}</h2>
             </div>
         )
     }

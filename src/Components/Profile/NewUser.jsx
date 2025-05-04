@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../Contexts/UserContext.jsx"
 import { postNewUser } from "../../api.js"
+import "./CSS/NewUser.css"
 
 
 export default function NewUser() {
@@ -12,8 +13,6 @@ export default function NewUser() {
     const [errMsg, setErrMsg] = useState("")
 
     function handleChange(e) {
-        console.log(newUser)
-        console.log(Object.keys(newUser))
         const key = e.target.id;
     
         if (e.target.type === "file") {
@@ -43,9 +42,7 @@ export default function NewUser() {
             setErrMsg("Invalid Email")
             return
         }
-        console.log(newUser)
-        postNewUser(newUser).then((response) => {
-            console.log(response)
+        postNewUser(newUser).then(() => {
             setUser(newUser)
             navigate("/")
         })
@@ -57,7 +54,7 @@ export default function NewUser() {
 
     if (isErr) {
         return (
-            <div>
+            <div className="error-page">
                 <h2>Could Not Create User</h2>
                 <p>Please Refresh and Try Again</p>
             </div>
@@ -65,21 +62,29 @@ export default function NewUser() {
     }
 
     return (
-        <div>
+        <div className="create-new-user-page-container">
+            <div className="create-new-user-page-container">
             <h2>Create New User</h2>
             <form>
-                <label htmlFor="username">Username</label>
+                <label id="username-label" htmlFor="username">Username</label>
                 <input type="text" id="username" onChange={handleChange}/>
-                <label htmlFor="email">Email</label>
+                <label id="email-label" htmlFor="email">Email</label>
                 <input type="text" id="email" onChange={handleChange}/>
-                <label htmlFor='image_url'>Profile Picture (URL)</label>
+                <div className="image-and-tag">
+                <label id="image-label" htmlFor='image_url'>Profile Picture (URL)</label>
                 <input type="text" id="image_url" onChange={handleChange}/>
-                <p>Unfortunately we can only accept images by URL at the moment</p>
-                <label htmlFor="is_staff">Are you staff?</label>
+                <p id="img-tagline">Unfortunately we can only accept images by URL at the moment</p>
+                </div>
+                <div className="staff-checkbox">
+                <label id="staff-label" htmlFor="is_staff">Are you staff?</label>
                 <input type="checkbox" id="is_staff" onChange={handleChange}/>
+                </div>
             </form>
+            <div className="sign-in-button-container">
             <button onClick={handleSubmit} disabled={!newUser.username || !newUser.email|| !Object.keys(newUser).includes("is_staff")}>Sign In</button>
-            {errMsg ? <p>{errMsg}</p> : <></>}
+            {errMsg ? <p id="error-msg">{errMsg}</p> : <></>}
+            </div>
+            </div>
         </div>
     )
 }

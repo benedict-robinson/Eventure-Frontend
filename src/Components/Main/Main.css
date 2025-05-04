@@ -108,6 +108,12 @@
   color: whitesmoke;
 }
 
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: 998px) {
   .tagline-container {
     justify-content: center;
