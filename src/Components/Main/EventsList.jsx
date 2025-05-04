@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react"
-import { fetchEvents } from "../../api.js"
+import { useContext, useEffect, useState } from "react"
+import { fetchEvents, fetchFavourites, fetchGoing } from "../../api.js"
 import EventCard from "./EventCard.jsx"
 import "./Main.css"
 import Loader from "./Loader.jsx"
 import "./Loader.css"
+import { UserContext } from "../../Contexts/UserContext.jsx"
 
 
 export default function EventsList({ params, categoryName }) {
     const [events, setEvents] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [faves, setUserFaves] = useState([])
+    const [going, setUserGoing] = useState([])
+    const { user } = useContext(UserContext)
 
     useEffect(() => {
         fetchEvents(params).then(({ events: fetched }) => {
@@ -30,6 +34,20 @@ export default function EventsList({ params, categoryName }) {
             })
     }, [params, categoryName])
 
+    useEffect(() => {
+        console.log(user)
+        fetchFavourites(user.user_id).then((response) => {
+            setUserFaves(response)
+            return fetchGoing(user.user_id)
+        })
+        .then((response) => {
+            setUserGoing(response)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }, [user])
+
     if (isLoading) {
         return (
             <div className="loader-container">
@@ -49,9 +67,11 @@ export default function EventsList({ params, categoryName }) {
     return (
         <div className="eventslist-container">
             {events.map((e, i) => {
+                const goingCurr = going.filter(g => g.event_id === e.event_id).length === 1
+                const favesCurr = faves.filter(f => f.event_id === e.event_id).length === 1
                 return (
                     <div className="event-card-container">
-                        <EventCard key={i} event={e} />
+                        <EventCard key={i} event={e} fave={favesCurr} going={goingCurr} />
                     </div>
                 )
             })}

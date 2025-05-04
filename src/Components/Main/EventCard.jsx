@@ -15,51 +15,54 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
   const [isGoing, setIsGoing] = useState(false)
   const [deleteQ, setDeleteQ] = useState(false)
   const navigate = useNavigate()
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext)
+
+  const apiKey = import.meta.env.VITE_EVENTURE_GOOGLE_API_KEY
+  const accessToken = import.meta.env.VITE_EVENTURE_GOOGLE_ACCESS_TOKEN
 
   useEffect(() => {
     setIsFave(fave)
     setIsGoing(going)
-  }, [fave, going])
+  }, [])
 
 
   function handleClickFave() {
     if (!isFave) {
-      postNewFave(user.user_id, {user_id: user.user_id, event_id: event.event_id}).then(() => {
+      postNewFave(user.user_id, { user_id: user.user_id, event_id: event.event_id }).then(() => {
         setIsFave(!isFave)
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err)
+        })
     }
     else if (isFave) {
       deleteNewFave(user.user_id, event.event_id).then(() => {
-        setUserFaves((prev) => {
+        if (setUserFaves) {setUserFaves((prev) => {
           const newFaves = prev.filter(e => e.event_id !== event.event_id)
           return newFaves
-        })
+        })}
         setIsFave(!isFave)
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
   function handleClickGoing() {
     if (!isGoing) {
-      postNewGoing(user.user_id, {user_id: user.user_id, event_id: event.event_id}).then(() => {
+      postNewGoing(user.user_id, { user_id: user.user_id, event_id: event.event_id }).then(() => {
         setIsGoing(!isGoing)
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err)
+        })
     }
     if (isGoing) {
       deleteNewGoing(user.user_id, event.event_id).then(() => {
-        setUserGoing((prev) => {
+        if (setUserGoing) {setUserGoing((prev) => {
           const newGoing = prev.filter(e => e.event_id !== event.event_id)
           return newGoing
-        })
+        })}
         setIsGoing(!isGoing)
       })
     }
