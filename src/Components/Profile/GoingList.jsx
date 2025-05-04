@@ -30,9 +30,11 @@ export default function GoingList({user}) {
   return (
     <div className="going-container">
       <h2>Going</h2>
+      <div className="lists-container">
       {userGoing.map((event, i) => {
         return <EventCard event={event} going={true} key={i} />
       })}
+      </div>
     </div>
   )
 }

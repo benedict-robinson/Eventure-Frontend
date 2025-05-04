@@ -31,9 +31,11 @@ export default function MyEventsList({user}) {
   return (
     <div className="my-events-container">
       <h2>My Events</h2>
+      <div className="lists-container">
       {userMyEvents.map((event, i) => {
         return <EventCard event={event} key={i} myEvent={true} setUserMyEvents={setUserMyEvents}/>
       })}
+      </div>
     </div>
   )
 }
