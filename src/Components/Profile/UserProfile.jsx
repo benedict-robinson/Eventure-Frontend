@@ -3,6 +3,7 @@ import { UserContext } from "../../Contexts/UserContext.jsx"
 import { useNavigate } from "react-router-dom"
 import { deleteUser, patchUser } from "../../api.js"
 import "./CSS/Profile.css"
+import "./CSS/UserPage.css"
 
 
 export default function UserProfile() {
@@ -67,9 +68,9 @@ export default function UserProfile() {
 
   if (deleteQ) {
     return (
-      <div>
+      <div className="delete-q-container">
         <h3>Are you sure you want to delete your account?</h3>
-        <div>
+        <div className="buttons-div">
           <button onClick={handleYes}>Yes</button>
           <button onClick={handleNo}>No</button>
         </div>
@@ -78,11 +79,13 @@ export default function UserProfile() {
   }
 
   return (
-    <div>
-      {!isEditing ? <p>{user.username}</p> : <input type="text" id="username" placeholder={user.username} onChange={editUser}/>}
+    <div className="user-page-div">
+      <div className="user-info-div">
+      {!isEditing ? <h1>{user.username}</h1> : <input type="text" id="username" placeholder={user.username} onChange={editUser}/>}
       {!isEditing ? <img src={user.image_url} /> : <input type="text" id="image_url" placeholder={user.image_url ? user.image_url : "Image url..."} onChange={editUser}/>}
       {!isEditing ? <p>{user.email}</p> : <input type="text" id="email" placeholder={user.email} onChange={editUser}/>}
       {emailMsg ? <p>{emailMsg}</p> : <></>}
+      </div>
       <div className="edit-delete-buttons">
         <button id="edit-button" onClick={handleEdit}>{isEditing ? "Save Edits" : "Edit Profile"}</button>
         <button id="delete-button" onClick={handleDelete}>{isEditing ? "Discard Edits" : "Delete Profile"}</button>
