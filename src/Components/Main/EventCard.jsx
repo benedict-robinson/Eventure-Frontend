@@ -6,11 +6,11 @@ import { formatDate } from "../../utils.js";
 import { useContext, useEffect, useState } from "react";
 import PencilButton from "./PencilButton.jsx";
 import BinButton from "./BinButton.jsx";
-import { deleteEvent } from "../../api.js";
+import { deleteEvent, deleteNewFave, postNewFave } from "../../api.js";
 import { UserContext } from "../../Contexts/UserContext.jsx";
 
 
-export default function EventCard({ event, fave = false, going = false, myEvent = false, setUserMyEvents }) {
+export default function EventCard({ event, fave = false, going = false, myEvent = false, setUserMyEvents, setUserFaves }) {
   const [isFave, setIsFave] = useState(false)
   const [isGoing, setIsGoing] = useState(false)
   const [deleteQ, setDeleteQ] = useState(false)
@@ -24,7 +24,26 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
 
 
   function handleClickFave() {
-    setIsFave(!isFave)
+    if (!isFave) {
+      postNewFave(user.user_id, {user_id: user.user_id, event_id: event.event_id}).then(() => {
+        setIsFave(!isFave)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+    else if (isFave) {
+      deleteNewFave(user.user_id, event.event_id).then(() => {
+        setUserFaves((prev) => {
+          const newFaves = prev.filter(e => e.event_id !== event.event_id)
+          return newFaves
+        })
+        setIsFave(!isFave)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
   }
   function handleClickGoing() {
     setIsGoing(!isGoing)
