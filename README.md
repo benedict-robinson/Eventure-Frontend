@@ -53,3 +53,16 @@ Note: You may need to register your app with Google Cloud to obtain a GOOGLE_CLI
 npm run dev
 ```
 The app should now be running at: http://localhost:5173
+
+---
+
+**Contact**
+
+For enquires or support, general or specific, please contact:
+
+Name: Benedict Robinson <br />
+Email: benedict.r1713@gmail.com <br />
+GitHub: benedict-robinson <br />
+
+
+**Thank you for your interest in the Eventure Web App repository!**
