@@ -1,4 +1,4 @@
-# Event Platform Web App
+# Eventure - Event Platform Web App
 
 ## 🌍 Project Summary
 
