@@ -19,44 +19,11 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
   const { user } = useContext(UserContext)
   const [calendarQ, setCalendarQ] = useState(false)
 
-  // const apiKey = import.meta.env.VITE_EVENTURE_GOOGLE_API_KEY
-  // const accessToken = import.meta.env.VITE_EVENTURE_GOOGLE_ACCESS_TOKEN
 
   useEffect(() => {
     setIsFave(fave)
     setIsGoing(going)
   }, [])
-
-  //   const addEvent = (googleEvent) => {
-  //     function initiate() {
-  //         gapi.client
-  //             .request({
-  //                 path: `https://www.googleapis.com/calendar/v3/calendars/primary/events`,
-  //                 method: 'POST',
-  //                 body: JSON.stringify(googleEvent),
-  //                 headers: {
-  //                     'Content-type': 'application/json',
-  //                     Authorization: `Bearer ${accessToken}`,
-  //                 },
-  //             })
-  //             .then(
-  //                 (response) => {
-  //                   console.log(response)
-  //                     return [true, response]
-  //                 },
-  //                 function (err) {
-  //                     console.log(err)
-  //                     return [false, err]
-  //                 }
-  //             )
-  //     }
-  //     gapi.load('client', initiate)
-  // }
-
-  // function addEventToGoogle() {
-  //   const googleEvent = convertEventToGoogle(event)
-  //   addEvent(googleEvent)
-  // }
 
 
   function handleClickFave() {
@@ -155,6 +122,7 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
           </p>
           {event.tags.length > 0 ? <p id="tags" >Tags: {event.tags.filter(t => t !== "Undefined").join(", ")}</p> : <></>}
         </div>
+        <div className="all-buttons">
         <div className="button-container">
           <button onClick={handleClickFave}><HeartIconComp isFave={isFave} /></button>
           <button onClick={handleClickGoing}><CalendarIconComp isGoing={isGoing} /></button>
@@ -162,6 +130,7 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
         <div className="edit-delete">
           {myEvent ? <PencilButton editFunc={handleClickEdit} /> : <></>}
           {myEvent ? <BinButton deleteFunc={handleClickDelete} /> : <></>}
+        </div>
         </div>
         {deleteQ ?
           <div>

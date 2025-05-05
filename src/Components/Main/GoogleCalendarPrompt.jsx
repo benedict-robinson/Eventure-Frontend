@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { gapi } from "gapi-script";
 import { convertEventToGoogle } from "../../utils.js";
+import "./Main.css"
 
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID;
 const SCOPE = "https://www.googleapis.com/auth/calendar.events";

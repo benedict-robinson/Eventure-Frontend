@@ -24,27 +24,6 @@ export function formatDate(dateString) {
     return date.getTime();
   }
 
-  // export function toLocalDateTime(start_date, start_time) {
-  //   return `${start_date}T${start_time}`;
-  // }
-
-  // export function convertEventToGoogle(e) {
-  //   const timeZone = e.date_and_time.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone;
-  
-  //   return {
-  //     summary: e.name,
-  //     description: e.description || "Added from Eventure",
-  //     start: {
-  //       dateTime: toLocalDateTime(e.date_and_time.start_date, e.date_and_time.start_time),
-  //       timeZone: timeZone
-  //     },
-  //     end: {
-  //       dateTime: toLocalDateTime(e.date_and_time.end_date, e.date_and_time.end_time),
-  //       timeZone: timeZone
-  //     }
-  //   };
-  // }
-
   export function toLocalDateTime(date, time) {
     if (!date || !time) return null;
     const dateTimeString = `${date}T${time}`;
@@ -61,10 +40,9 @@ export function formatDate(dateString) {
     let endDateTime = toLocalDateTime(e.date_and_time.end_date, e.date_and_time.end_time);
   
     if (!endDateTime) {
-      // Add 1 hour to start time as fallback
       const tempDate = new Date(startDateTime);
       tempDate.setHours(tempDate.getHours() + 1);
-      endDateTime = tempDate.toISOString().slice(0, 19); // "YYYY-MM-DDTHH:mm:ss"
+      endDateTime = tempDate.toISOString().slice(0, 19); 
     }
   
     return {
