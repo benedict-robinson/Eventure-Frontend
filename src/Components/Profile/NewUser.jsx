@@ -76,7 +76,7 @@ export default function NewUser() {
                 <p id="img-tagline">Unfortunately we can only accept images by URL at the moment</p>
                 </div>
                 <div className="staff-checkbox">
-                <label id="staff-label" htmlFor="is_staff">Are you staff?</label>
+                <label id="staff-label" htmlFor="is_staff">Are you an Event Organiser?</label>
                 <input type="checkbox" id="is_staff" onChange={handleChange}/>
                 </div>
             </form>

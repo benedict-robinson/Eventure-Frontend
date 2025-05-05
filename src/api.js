@@ -49,9 +49,6 @@ export const fetchMyEvents = (id) => {
     .then(({data: {events}}) => {
         return events
     })
-    .catch((err) => {
-        console.log(err)
-    })
 }
 
 export const postNewEvent = (username, eventObj) => {

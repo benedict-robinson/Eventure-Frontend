@@ -23,7 +23,6 @@ export default function GoogleCalendarPrompt({ event, user, onSuccess, onCancel 
   function handleAddToGoogleCalendar() {
       const authInstance = gapi.auth2.getAuthInstance();
       const googleEvent = convertEventToGoogle(event);
-      console.log(googleEvent)
 
     const isUserGmail = isGmail(user?.email);
 
@@ -49,8 +48,7 @@ export default function GoogleCalendarPrompt({ event, user, onSuccess, onCancel 
           Authorization: `Bearer ${token}`,
         },
       }).then(
-        (res) => {
-          console.log("Event added:", res);
+        () => {
           alert("Event added to Google Calendar.");
           onSuccess?.();
         },
