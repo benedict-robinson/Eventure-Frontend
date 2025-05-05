@@ -35,7 +35,6 @@ export default function EventsList({ params, categoryName }) {
     }, [params, categoryName])
 
     useEffect(() => {
-        console.log(user)
         fetchFavourites(user.user_id).then((response) => {
             setUserFaves(response)
             return fetchGoing(user.user_id)

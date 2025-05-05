@@ -16,7 +16,6 @@ export function formatDate(dateString) {
   }
 
   export function convertToMilliseconds(dateString, timeString) {
-    console.log({dateString, timeString})
     const [year, month, day] = dateString.split('-').map(Number); 
     const [hour, minute] = timeString.split(':').map(Number);
   
