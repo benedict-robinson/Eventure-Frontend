@@ -1,12 +1,55 @@
-# React + Vite
+# Event Platform Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🌍 Project Summary
 
-Currently, two official plugins are available:
+This is a web-based event platform designed to help users discover events across major cities in the **UK and US**. Users can:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Browse events by location and **sort by categories**.
+- Save events to a **“Going” list** or a **Favourites** list.
+- **Create a new account** or **edit their user profile**.
+- **Organisers** (signed-in with an organiser account) can:
+  - Create new events.
+  - Edit or delete their own events.
+  - Manage events from the **"My Events"** dashboard.
 
-## Expanding the ESLint configuration
+Additional feature: Users can **sync events to their Google Calendar** by logging into their Google account.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 👤 Test Account Access
+
+- The web app is **automatically signed in** as `user1` on first load.
+- You can **log out** and create a new account at any time.
+- To use the **Google Calendar sync**, you’ll need to **log into your own Google account** when prompted.
+
+---
+
+## ⚙️ Running the Project Locally
+
+### 1. **Clone the Repository**
+```bash
+git clone https://github.com/benedict-robinson/event-platform.git
+cd event-platform
+```
+### 2. Install Dependencies
+
+Make sure you have **Node.js** and **npm** installed.
+```bash
+npm install
+```
+### 3. Set Up Environment Variables
+
+Create a `.env` file in the root directory and add the following (example values shown):
+
+```env
+VITE_API_BASE_URL=https://eventure-backend-api.onrender.com/api
+VITE_GOOGLE_CLIENT_ID=your-google-client-id
+VITE_GOOGLE_API_KEY=your-google-api-key
+```
+Note: You may need to register your app with Google Cloud to obtain a GOOGLE_CLIENT_ID and enable the Google Calendar API.
+
+### 4. Start the App
+```bash
+npm run dev
+```
+The app should now be running at: http://localhost:5173
