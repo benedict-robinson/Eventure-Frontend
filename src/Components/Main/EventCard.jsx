@@ -8,6 +8,7 @@ import PencilButton from "./PencilButton.jsx";
 import BinButton from "./BinButton.jsx";
 import { deleteEvent, deleteNewFave, deleteNewGoing, postNewFave, postNewGoing } from "../../api.js";
 import { UserContext } from "../../Contexts/UserContext.jsx";
+import GoogleCalendarPrompt from "./GoogleCalendarPrompt.jsx";
 
 
 export default function EventCard({ event, fave = false, going = false, myEvent = false, setUserMyEvents, setUserFaves, setUserGoing }) {
@@ -15,51 +16,58 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
   const [isGoing, setIsGoing] = useState(false)
   const [deleteQ, setDeleteQ] = useState(false)
   const navigate = useNavigate()
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext)
+  const [calendarQ, setCalendarQ] = useState(false)
+
 
   useEffect(() => {
     setIsFave(fave)
     setIsGoing(going)
-  }, [fave, going])
+  }, [])
 
 
   function handleClickFave() {
     if (!isFave) {
-      postNewFave(user.user_id, {user_id: user.user_id, event_id: event.event_id}).then(() => {
+      postNewFave(user.user_id, { user_id: user.user_id, event_id: event.event_id }).then(() => {
         setIsFave(!isFave)
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err)
+        })
     }
     else if (isFave) {
       deleteNewFave(user.user_id, event.event_id).then(() => {
-        setUserFaves((prev) => {
-          const newFaves = prev.filter(e => e.event_id !== event.event_id)
-          return newFaves
-        })
+        if (setUserFaves) {
+          setUserFaves((prev) => {
+            const newFaves = prev.filter(e => e.event_id !== event.event_id)
+            return newFaves
+          })
+        }
         setIsFave(!isFave)
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
   function handleClickGoing() {
     if (!isGoing) {
-      postNewGoing(user.user_id, {user_id: user.user_id, event_id: event.event_id}).then(() => {
+      postNewGoing(user.user_id, { user_id: user.user_id, event_id: event.event_id }).then(() => {
         setIsGoing(!isGoing)
+        setCalendarQ(true)
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err)
+        })
     }
     if (isGoing) {
       deleteNewGoing(user.user_id, event.event_id).then(() => {
-        setUserGoing((prev) => {
-          const newGoing = prev.filter(e => e.event_id !== event.event_id)
-          return newGoing
-        })
+        if (setUserGoing) {
+          setUserGoing((prev) => {
+            const newGoing = prev.filter(e => e.event_id !== event.event_id)
+            return newGoing
+          })
+        }
         setIsGoing(!isGoing)
       })
     }
@@ -84,6 +92,19 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
       });
   }
 
+  if (calendarQ) {
+    return (
+      <div>
+        <GoogleCalendarPrompt
+          user={user}
+          event={event}
+          onSuccess={() => setCalendarQ(false)}
+          onCancel={() => setCalendarQ(false)}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className="event-card">
       <Link to={`/event/${event.event_id}`}>
@@ -101,6 +122,7 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
           </p>
           {event.tags.length > 0 ? <p id="tags" >Tags: {event.tags.filter(t => t !== "Undefined").join(", ")}</p> : <></>}
         </div>
+        <div className="all-buttons">
         <div className="button-container">
           <button onClick={handleClickFave}><HeartIconComp isFave={isFave} /></button>
           <button onClick={handleClickGoing}><CalendarIconComp isGoing={isGoing} /></button>
@@ -108,6 +130,7 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
         <div className="edit-delete">
           {myEvent ? <PencilButton editFunc={handleClickEdit} /> : <></>}
           {myEvent ? <BinButton deleteFunc={handleClickDelete} /> : <></>}
+        </div>
         </div>
         {deleteQ ?
           <div>
