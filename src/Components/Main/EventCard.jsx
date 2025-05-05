@@ -8,7 +8,7 @@ import PencilButton from "./PencilButton.jsx";
 import BinButton from "./BinButton.jsx";
 import { deleteEvent, deleteNewFave, deleteNewGoing, postNewFave, postNewGoing } from "../../api.js";
 import { UserContext } from "../../Contexts/UserContext.jsx";
-import { gapi } from 'gapi-script'
+import GoogleCalendarPrompt from "./GoogleCalendarPrompt.jsx";
 
 
 export default function EventCard({ event, fave = false, going = false, myEvent = false, setUserMyEvents, setUserFaves, setUserGoing }) {
@@ -19,40 +19,44 @@ export default function EventCard({ event, fave = false, going = false, myEvent 
   const { user } = useContext(UserContext)
   const [calendarQ, setCalendarQ] = useState(false)
 
-  const apiKey = import.meta.env.VITE_EVENTURE_GOOGLE_API_KEY
-  const accessToken = import.meta.env.VITE_EVENTURE_GOOGLE_ACCESS_TOKEN
+  // const apiKey = import.meta.env.VITE_EVENTURE_GOOGLE_API_KEY
+  // const accessToken = import.meta.env.VITE_EVENTURE_GOOGLE_ACCESS_TOKEN
 
   useEffect(() => {
     setIsFave(fave)
     setIsGoing(going)
   }, [])
 
-  const addEvent = (googleEvent) => {
-    function initiate() {
-        gapi.client
-            .request({
-                path: `https://www.googleapis.com/calendar/v3/calendars/primary/events`,
-                method: 'POST',
-                body: googLeEvent,
-                headers: {
-                    'Content-type': 'application/json',
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            })
-            .then(
-                (response) => {
-                    return [true, response]
-                },
-                function (err) {
-                    console.log(err)
-                    return [false, err]
-                }
-            )
-    }
-    gapi.load('client', initiate)
-}
+  //   const addEvent = (googleEvent) => {
+  //     function initiate() {
+  //         gapi.client
+  //             .request({
+  //                 path: `https://www.googleapis.com/calendar/v3/calendars/primary/events`,
+  //                 method: 'POST',
+  //                 body: JSON.stringify(googleEvent),
+  //                 headers: {
+  //                     'Content-type': 'application/json',
+  //                     Authorization: `Bearer ${accessToken}`,
+  //                 },
+  //             })
+  //             .then(
+  //                 (response) => {
+  //                   console.log(response)
+  //                     return [true, response]
+  //                 },
+  //                 function (err) {
+  //                     console.log(err)
+  //                     return [false, err]
+  //                 }
+  //             )
+  //     }
+  //     gapi.load('client', initiate)
+  // }
 
-function addEventToGoogle()
+  // function addEventToGoogle() {
+  //   const googleEvent = convertEventToGoogle(event)
+  //   addEvent(googleEvent)
+  // }
 
 
   function handleClickFave() {
@@ -66,10 +70,12 @@ function addEventToGoogle()
     }
     else if (isFave) {
       deleteNewFave(user.user_id, event.event_id).then(() => {
-        if (setUserFaves) {setUserFaves((prev) => {
-          const newFaves = prev.filter(e => e.event_id !== event.event_id)
-          return newFaves
-        })}
+        if (setUserFaves) {
+          setUserFaves((prev) => {
+            const newFaves = prev.filter(e => e.event_id !== event.event_id)
+            return newFaves
+          })
+        }
         setIsFave(!isFave)
       })
         .catch((err) => {
@@ -89,10 +95,12 @@ function addEventToGoogle()
     }
     if (isGoing) {
       deleteNewGoing(user.user_id, event.event_id).then(() => {
-        if (setUserGoing) {setUserGoing((prev) => {
-          const newGoing = prev.filter(e => e.event_id !== event.event_id)
-          return newGoing
-        })}
+        if (setUserGoing) {
+          setUserGoing((prev) => {
+            const newGoing = prev.filter(e => e.event_id !== event.event_id)
+            return newGoing
+          })
+        }
         setIsGoing(!isGoing)
       })
     }
@@ -120,11 +128,12 @@ function addEventToGoogle()
   if (calendarQ) {
     return (
       <div>
-        <p>Do you want to add this event to your Google Calendar?</p>
-        <div>
-          <button>Yes</button>
-          <button onClick={() => {setCalendarQ(false)}}>No</button>
-        </div>
+        <GoogleCalendarPrompt
+          user={user}
+          event={event}
+          onSuccess={() => setCalendarQ(false)}
+          onCancel={() => setCalendarQ(false)}
+        />
       </div>
     )
   }
