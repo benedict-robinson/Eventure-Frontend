@@ -56,7 +56,13 @@ The app should now be running at: http://localhost:5173
 
 ---
 
-**Contact**
+**Link to the Eventure backend RESTful API:**
+
+https://github.com/benedict-robinson/Eventure-Backend
+
+
+
+### Contact
 
 For enquires or support, general or specific, please contact:
 
